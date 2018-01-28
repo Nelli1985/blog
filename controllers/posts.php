@@ -1,8 +1,16 @@
-<?php namespace App;
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Acer
+ * Date: 1/28/2018
+ * Time: 4:36 PM
+ */
 
-class welcome extends Controller
+namespace App;
+
+
+class posts extends Controller
 {
-
     /**
      * This is a normal action which will be called when user visits /welcome/index URL. Since index is the default
      * action name, it may be omitted (URL can be /welcome). Since welcome is by default the default controller, it may
