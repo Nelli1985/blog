@@ -1,4 +1,4 @@
-<h1>Welcome!</h1>
+<h1>Welcome! </h1>
 
 
 <p>This is the welcome controller's default view file. It is located at <code>/views/welcome/welcome_index.php</code>.
