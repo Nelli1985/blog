@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2018 at 01:16 PM
+-- Generation Time: Feb 09, 2018 at 08:41 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -37,8 +37,20 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_subject`, `post_text`, `post_created`, `user_id`) VALUES
-(1, 'First post', 'This is my very first post. I wonder if this will work after my git reset --hard XD', '2018-02-02 19:18:52', 1),
-(2, 'Teine postitus', 'Ja see on mu teine postitus.\r\n\r\nVaatame, kas tuleb sappa?', '2018-02-04 12:10:25', 1);
+(1, 'Esimene postitus', 'This is my very first post. I wonder if this will work after my git reset --hard XD.\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2018-02-02 19:18:52', 1),
+(2, 'Teine postitus', 'Ja see on mu teine postitus.\r\n\r\nVaatame, kas tuleb sappa?\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2018-02-04 12:10:25', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag`
+--
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `tag_id` int(10) UNSIGNED NOT NULL,
+  `tag_name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -81,7 +93,10 @@ INSERT INTO `translations` (`translation_id`, `phrase`, `language`, `translation
 (18, 'Sign in', 'et', '{untranslated}', 'global', 'global'),
 (19, 'Oops...', 'et', '{untranslated}', 'global', 'global'),
 (20, 'Close', 'et', '{untranslated}', 'global', 'global'),
-(21, 'Server returned an error. Please try again later ', 'et', '{untranslated}', 'global', 'global');
+(21, 'Server returned an error. Please try again later ', 'et', '{untranslated}', 'global', 'global'),
+(22, 'Oops...', 'en', '{untranslated}', 'global', 'global'),
+(23, 'Close', 'en', '{untranslated}', 'global', 'global'),
+(24, 'Server returned an error. Please try again later ', 'en', '{untranslated}', 'global', 'global');
 
 -- --------------------------------------------------------
 
@@ -104,7 +119,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `is_admin`, `password`, `email`, `deleted`, `name`) VALUES
-(1, 1, '$2y$10$vTje.ndUFKHyuotY99iYkO.2aHJUgOsy2x0RMXP1UmrTe6CQsKbtm', 'demo@example.com', 0, 'Demo User');
+(1, 1, '$2y$10$vTje.ndUFKHyuotY99iYkO.2aHJUgOsy2x0RMXP1UmrTe6CQsKbtm', 'demo@example.com', 0, 'Demo User'),
+(2, 0, 'qwerty', 'king@king.ee', 0, 'Kong');
 
 --
 -- Indexes for dumped tables
@@ -116,6 +132,12 @@ INSERT INTO `users` (`user_id`, `is_admin`, `password`, `email`, `deleted`, `nam
 ALTER TABLE `post`
   ADD PRIMARY KEY (`post_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `tag`
+--
+ALTER TABLE `tag`
+  ADD PRIMARY KEY (`tag_id`);
 
 --
 -- Indexes for table `translations`
@@ -141,16 +163,22 @@ ALTER TABLE `post`
   MODIFY `post_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tag`
+--
+ALTER TABLE `tag`
+  MODIFY `tag_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `translation_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `translation_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
