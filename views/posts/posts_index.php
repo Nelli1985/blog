@@ -2,10 +2,11 @@
     <?php foreach($posts as $post): ?>
         <h1><?=$post['post_subject'] ?></h1>
         <p><?=$post['post_text'] ?></p>
+        <a href="<?=BASE_URL?>posts/view/<?=$post['post_id']?>">Loe veel...</a>
         <div>
             <span class="badge badge-success"><?=$post['post_created'] ?></span>
-            <div class="pull-right"><span class="label"><?=$post['user_id'] ?></span> <span class="label">story</span> <span class="label">blog</span>
-                <span class="label">personal</span></div>
+            <div class="pull-right"><span class="label"><?=$post['user_id'] ?></span></div>
         </div>
+        <hr>
     <?php endforeach ?>
 </div>
