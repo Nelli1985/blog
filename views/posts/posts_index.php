@@ -7,6 +7,6 @@
             <span class="badge badge-success"><?=$post['post_created'] ?></span>
             <div class="pull-right"><span class="label"><?=$post['user_id'] ?></span></div>
         </div>
-        <hr>
     <?php endforeach ?>
+    <hr>
 </div>
