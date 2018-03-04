@@ -5,7 +5,6 @@
     <p><?php echo $post['post_text'] ?></p>
     <div>
         <u class="list-inline list unstyled" style="text-decoration: none;">
-            <hr>
             <li><span><i class="glyphicon glyphicon-calendar"></i><?php echo $post['post_created'] ?></span></li>
             <li>|</li>
             <?php foreach ($tags as $tag):?>
@@ -15,9 +14,26 @@
                     </span>
                 </a>&nbsp;
             <?php endforeach?>
-            <li>|</li>
-            <span><i class="glyphicon glyphicon-comment"></i> ? comments</span>
         </u>
+    </div>
+</div>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class="media comment-box">
+            <div class="media-body">
+
+                <?php foreach($comments as $comment): ?>
+                <h4 class="media-heading"><?=$comment['comment_subject']?></h4>
+                <p><?=$comment['comment_text']?></p>
+                <span class="badge badge-success">Commented on <?=$comment['comment_created']?></span> <span class="badge badge-success">Author: <?=$comment['comment_author']?></span>
+
+                <hr>
+                <?php endforeach ?>
+
+            </div>
+        </div>
     </div>
 </div>
 

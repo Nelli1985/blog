@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2018 at 08:29 PM
+-- Generation Time: Mar 04, 2018 at 09:06 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -16,8 +16,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `blog`
 --
-CREATE DATABASE IF NOT EXISTS `blog` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `blog`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `comment_id` int(10) UNSIGNED NOT NULL,
+  `comment_subject` varchar(255) COLLATE utf32_bin NOT NULL,
+  `comment_text` text COLLATE utf32_bin NOT NULL,
+  `comment_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment_author` varchar(255) COLLATE utf32_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_bin;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`comment_id`, `comment_subject`, `comment_text`, `comment_created`, `comment_author`) VALUES
+(1, 'Tubli töö', 'Mina arvan nii ja kõik nõustuvad minuga', '2018-03-04 19:49:49', 'Musti'),
+(2, 'Mõtetu kraam', 'Aga ikkagi päris hea töö', '2018-03-04 19:50:10', 'Kalle Gustav'),
+(3, 'Kolm on kohtu seadus', 'Ja see ongi kolmas kommentaar', '2018-03-04 19:50:38', 'Kolmas');
 
 -- --------------------------------------------------------
 
@@ -42,6 +64,27 @@ INSERT INTO `post` (`post_id`, `post_subject`, `post_text`, `post_created`, `use
 (1, 'Esimene postitus', 'This is my very first post. I wonder if this will work after my git reset --hard XD.\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2018-02-02 19:18:52', 1),
 (2, 'Teine postitus', 'Ja see on mu teine postitus.\r\n\r\nVaatame, kas tuleb sappa?\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2018-02-04 12:10:25', 2),
 (3, 'Kolmas postitus', 'Kolmas katsetus tagide testimiseks', '2018-03-04 19:24:04', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_comments`
+--
+
+DROP TABLE IF EXISTS `post_comments`;
+CREATE TABLE `post_comments` (
+  `post_id` int(10) UNSIGNED NOT NULL,
+  `comment_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_bin;
+
+--
+-- Dumping data for table `post_comments`
+--
+
+INSERT INTO `post_comments` (`post_id`, `comment_id`) VALUES
+(1, 2),
+(1, 1),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -161,11 +204,24 @@ INSERT INTO `users` (`user_id`, `is_admin`, `password`, `email`, `deleted`, `nam
 --
 
 --
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`post_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD KEY `comment_id` (`comment_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `post_tags`
@@ -196,6 +252,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `comment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -230,6 +292,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD CONSTRAINT `post_comments_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`comment_id`),
+  ADD CONSTRAINT `post_comments_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`);
 
 --
 -- Constraints for table `post_tags`
